@@ -16,8 +16,8 @@ jobs:
           Install-Module InvokeBuild -ErrorAction Stop
       - name: Build and publish
         env:
-          NUGET_KEY: ${{ secrets.API_KEY }}
+          NUGET_KEY: ${{ secrets.NUGETAPIKEY }}
         shell: pwsh
         run: |
           Invoke-Build
-          Publish-Module -Path /build/SeededGuid -NuGetApiKey $env:NUGET_KEY -Verbose
+          Publish-Module -Path /build/SeededGuid -NuGetApiKey "$env:NUGET_KEY" -Verbose
