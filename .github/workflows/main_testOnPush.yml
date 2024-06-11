@@ -1,0 +1,26 @@
+name: Test Module on Windows
+on: push
+
+jobs:
+  tests:
+    name: Run Tests
+    runs-on: windows-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+    - name: Install InvokeBuild
+      if: success()
+      shell: pwsh
+      run: |
+        Set-PSRepository PSGallery -InstallationPolicy Trusted
+        Install-Module InvokeBuild -ErrorAction Stop
+    - name: Run Analysis
+      if: success()
+      shell: pwsh
+      run: |
+        Invoke-Build Analyse
+    - name: Run Tests
+      if: success()
+      shell: pwsh
+      run: |
+        Invoke-Build Test
