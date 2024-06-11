@@ -147,14 +147,13 @@ task UpdatePackageSpecification GenerateNewModuleVersion, {
 # Builds the module after updating the module manifest and package specification
 task Build UpdateModuleManifest, UpdatePackageSpecification, {
 
-    $moduleOutputPath = Join-Path -Path $buildOutputPath -ChildPath $newModuleVersion
-    if (-not (Test-Path $moduleOutputPath)) {
-        New-Item -Path $moduleOutputPath -ItemType Directory
+    if (-not (Test-Path $buildOutputPath)) {
+        New-Item -Path $buildOutputPath -ItemType Directory
     }
 
     $Params = @{
         Path = Join-Path -path $BuildRoot -ChildPath $moduleName
-        Destination = $moduleOutputPath
+        Destination = $buildOutputPath
         Exclude = "*.Tests.*", "*.PSSATests.*"
         Recurse = $true
         Force = $true
