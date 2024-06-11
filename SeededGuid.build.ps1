@@ -84,7 +84,7 @@ task GenerateNewModuleVersion {
         [int]$minor = $currVersion.Minor
         [int]$build = $currVersion.Build
 
-        $existingFunctionsCount = (Get-Command -Module $moduleName | Where-Object version -eq $existingPackage.version | Measure-Object).Count
+        $existingFunctionsCount = $existingPackage.Includes.Function.Count
 
         [int]$sourceFunctionsCount = (Get-ChildItem -Path "$moduleSourcePath\Public\*.ps1" -Exclude "*.Tests.*" -Recurse | Measure-Object).Count
         [int]$newFunctionsCount = [System.Math]::Abs($sourceFunctionsCount - $existingFunctionsCount)
