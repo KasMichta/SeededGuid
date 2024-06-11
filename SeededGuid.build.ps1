@@ -47,13 +47,40 @@ task Analyse {
         }
     }
     
-    if($env:TF_BUILD) {
+    if ($env:TF_BUILD) {
         if (-not (Test-Path -Path $buildOutputPath -ErrorAction SilentlyContinue)) {
             New-Item -Path $buildOutputPath -ItemType Directory
         }
         $timeStamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
         $PSVersion = $PSVersionTable.PSVersion.Major
         $testResultFile = "AnalysisResults_PS$PSVersion`_$timeStamp.xml"
+        $config.TestResult.OutputPath = "$buildOutputPath\$testResultFile"
+    }
+
+    Invoke-Pester -Configuration $config
+}
+
+task Test {
+
+    $testFiles = Get-ChildItem -Path $moduleSourcePath -Recurse -Include "*.Tests.*"
+
+    $config = New-PesterConfiguration @{
+        Run = @{
+            Path = $testFiles
+            Exit = $true
+        }
+        TestResult = @{
+            Enabled = $true
+        }
+    }
+
+    if ($env:TF_BUILD) {
+        if (-not (Test-Path -Path $buildOutputPath -ErrorAction SilentlyContinue)) {
+            New-Item -Path $buildOutputPath -ItemType Directory
+        }
+        $timeStamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
+        $PSVersion = $PSVersionTable.PSVersion.Major
+        $testResultFile = "TestResults_PS$PSVersion`_$timeStamp.xml"
         $config.TestResult.OutputPath = "$buildOutputPath\$testResultFile"
     }
 
