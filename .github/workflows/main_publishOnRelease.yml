@@ -21,4 +21,4 @@ jobs:
         shell: pwsh
         run: |
           Invoke-Build
-          Publish-Module -Path /build/SeededGuid -NuGetApiKey "$env:NUGET_KEY" -Verbose
+          Publish-Module -Path ./build/SeededGuid -NuGetApiKey "$env:NUGET_KEY" -Verbose
