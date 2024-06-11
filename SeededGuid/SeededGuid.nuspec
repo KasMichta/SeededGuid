@@ -6,7 +6,7 @@
     <authors>Kas Michta</authors>
     <description>Generate Deterministic Seeded Guids</description>
     <copyright>(c) Kas Michta.</copyright>
-    <licenseUrl>.</licenseUrl>
-    <projectUrl>.</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/KasMichta/SeededGuid/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/KasMichta/SeededGuid</projectUrl>
   </metadata>
 </package>
